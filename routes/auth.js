@@ -4,13 +4,9 @@ const bcrypt = require('bcryptjs'); //for password hashing
 const jwt = require('jsonwebtoken');   //to use token in a login session 
 
 
-//validator
 const {registerValidation, loginValidation} = require('../validation');
 
 
-
-
-// async
 
 router.post('/register', async (req,res)=>{
     

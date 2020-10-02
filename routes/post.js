@@ -1,20 +1,19 @@
 const router = require('express').Router();
 const {postCreationValidation} = require('../validation');
 const userModel = require('../models/user');
+const {postModel} = require('../models/posts');
 const {authenticate} = require('../vetifyToken');   //to make the route private
 
-const { verify } = require('jsonwebtoken');
 
 router.get('/',authenticate,async (req,res)=>{
-    res.json({posts:{
-            title:'First post',
-            description:'Random data you should not access'
-        }
-    });
+    
+
 
     //we have the logged in user's info
     userId = req.user._id;
-    const userInfo = await userModel.findOne({_id:userId})
+    // const userInfo = await userModel.findOne({_id:userId});
+    const posts = await postModel.find();
+    res.json(posts)
 
 })
 
@@ -22,26 +21,32 @@ router.post('/', authenticate,async (req,res)=>{
     const {error} = postCreationValidation(req.body);
     if(error)
         return res.status(400).send(error.details[0].message);
-    
-    // const u = await userModel.findOne({_id:})
 
-    const newPost = await userModel.findOneAndUpdate({_id : req.user._id},    
+    const modelObj = {
+        authorId: req.user._id, title: req.body.title, content: req.body.content
+    }
+    
+    const newPostModel = await new postModel(modelObj);
+
+
+    const newUserPosts = await userModel.findOneAndUpdate({_id : newPostModel.authorId},    
         {
         $push: {
             posts: {
-                $each:[{authorId: req.user._id, title: req.body.title, content: req.body.content}],
+                $each:[{postId:newPostModel._id}],
                 $position:0,
         }
     }}
     );
+
     
     try{
-        const savedNewPost = await newPost.save();
-        res.send({ newPostsId: savedNewPost.posts[0]._id, newPost: savedNewPost});
+        const newPostModelSave = await newPostModel.save();
+        const savedUserPosts = await newUserPosts.save();
+        await res.json(newPostModelSave);
     }catch(err){
         res.status(400).send(err);
     }
-    
 })
 
 module.exports = router

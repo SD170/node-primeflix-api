@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
 
-const postSchema = require('./posts');
+// const {postSchema} = require('./posts');
 //Create Schema and Model
 // const userSchema = new mongoose.Schema({
     // username: String,
     // email: String,
     // password: String,
 // })
+const postIdSchema = new mongoose.Schema({
+    postId:String
+})
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -27,7 +30,7 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    posts:[postSchema],
+    posts:[postIdSchema],
 })
 
     //model/collection name = usermodel

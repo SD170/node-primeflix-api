@@ -1,4 +1,3 @@
-const { string } = require('@hapi/joi');
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
@@ -25,7 +24,10 @@ const postSchema = new mongoose.Schema({
     }
 })
 
-// const postModel = mongoose.model('post',postSchema);
+const postModel = mongoose.model('post',postSchema);
 //export the postSchema..not the model 
 
-module.exports = postSchema
+module.exports = {
+    'postSchema': postSchema,
+    'postModel': postModel
+}
