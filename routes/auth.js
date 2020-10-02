@@ -65,7 +65,7 @@ router.post('/login',async (req,res)=>{
     const token = jwt.sign({_id: thatUserRow._id},process.env.TOKEN_SECRET)  
     //in the frntend we can access the id of the usr, the token is in .env 
     //after creation add token to the header.we can use any name [auth-token]
-    res.header('auth-token',token).send(`"message" : "hi,${thatUserRow.username}. You're logged in.${req.user}"`);
+    res.header('auth-token',token).send(`"message" : "hi,${thatUserRow.username}. You're logged in."`);
     
     // res.send(`"message" : "hi,${thatUserRow.username}. You're logged in."`);
 

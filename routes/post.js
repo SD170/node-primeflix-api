@@ -43,7 +43,13 @@ router.post('/', authenticate,async (req,res)=>{
     try{
         const newPostModelSave = await newPostModel.save();
         const savedUserPosts = await newUserPosts.save();
-        await res.json(newPostModelSave);
+        await res.json({
+            _id: newPostModelSave._id,
+            authorId: newPostModelSave.authorId,
+            title: newPostModelSave.title,
+            content: newPostModelSave.content,
+            createdAt: newPostModelSave.createdAt
+        });
     }catch(err){
         res.status(400).send(err);
     }

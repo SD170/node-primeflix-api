@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const {paymentModel} = require('./models/payments');
+
+
+//payment
+var Razorpay=require("razorpay");
+
 
 //cors
 const cors = require('cors');
@@ -46,6 +52,58 @@ app.use('/api/user',authRoute);
     //it'll always have this prefix
 app.use('/api/posts',postRoute);
 
+
+//payment
+//creating an instance for the loccal payment
+
+let instance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID, // your `KEY_ID`
+    key_secret: process.env.RAZORPAY_KEY_SECRET // your `KEY_SECRET`
+  })
+  
+
+  app.use('/web', express.static('public'));
+
+  //generating the order ID for the payment instance
+  
+  app.post("/api/payment/order",(req,res)=>{
+  params=req.body;
+  instance.orders.create(params).then((data) => {
+         res.send({"sub":data,"status":"success"});
+  }).catch((error) => {
+         res.send({"sub":error,"status":"failed"});
+  })
+  });
+  
+  
+  //verfiy the params and expected signature here
+  //encrypting with HMAC
+  
+  app.post("/api/payment/verify",async (req,res)=>{
+  body=req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id;
+  var crypto = require("crypto");
+  var expectedSignature = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+                                  .update(body.toString())
+                                  .digest('hex');
+                                  console.log("sig"+req.body.razorpay_signature);
+                                  console.log("sig"+expectedSignature);
+  
+  const newPayModel = new paymentModel({payment_signature: `sig${req.body.razorpay_signature}`});
+  try{
+    const newPay = await newPayModel.save();
+    // res.send({_id: newPay._id, payment_signature: newPay.payment_signature});
+}catch(err){
+    res.status(400).send(err);
+}
+
+  var response = {"status":"failure"}
+  if(expectedSignature === req.body.razorpay_signature)
+   response={"status":"success"}
+      res.send(response);
+  });
+  
+  
+    
 
 
 
