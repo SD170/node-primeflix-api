@@ -1,17 +1,5 @@
 # nodeJs-primeflix-api
 
-* [Guidelines](#guidelines)
-* [Pragmatic REST](#pragmatic-rest)
-* [RESTful URLs](#restful-urls)
-* [HTTP Verbs](#http-verbs)
-* [Responses](#responses)
-* [Error handling](#error-handling)
-* [Versions](#versions)
-* [Record limits](#record-limits)
-* [Request & Response Examples](#request--response-examples)
-* [Mock Responses](#mock-responses)
-* [JSONP](#jsonp)
-
 ## Description
 It's an api made using Node.js, express.js for the backend server and routes Mongoose as the DB.
 It consists of user-register, authentication, posting and a payment gateway with all the payment logs saved in DB.
