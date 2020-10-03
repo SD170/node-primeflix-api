@@ -52,7 +52,7 @@ app.use('/api/user',authRoute);
     //this means to go to register we have to go to /api/user/register
     //it'll always have this prefix
 app.use('/api/posts',postRoute);
-app.use('/api/payment',paymentRoute);
+app.use('/api/payments',paymentRoute);
 
 
 //payment
