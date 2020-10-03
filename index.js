@@ -15,6 +15,7 @@ app.use(cors());
 //import Routes
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/post');
+const paymentRoute = require('./routes/payment');
 
 //dotenv - dont have to require in other files.
 const dotenv = require('dotenv');
@@ -51,6 +52,7 @@ app.use('/api/user',authRoute);
     //this means to go to register we have to go to /api/user/register
     //it'll always have this prefix
 app.use('/api/posts',postRoute);
+app.use('/api/payment',paymentRoute);
 
 
 //payment
