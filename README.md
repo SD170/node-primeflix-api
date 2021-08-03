@@ -6,26 +6,26 @@ It consists of user-register, authentication, posting and a payment gateway with
 ##Endpoints
 ### Good URL examples
 * Register:
-    * POST http://localhost:3700/api/user/register
+    * POST /api/user/register
 * Login:
-    * POST http://localhost:3700/api/user/login
+    * POST /api/user/login
 * To create a post with "title, content":
-    * POST http://localhost:3700/api/posts/
+    * POST /api/posts/
 * To retrive all posts:
-    * GET http://localhost:3700/api/posts/
+    * GET /api/posts/
 * All articles in this magazine in XML format:
-    * GET http://example.gov/api/v1/magazines/1234/articles.xml
+    * GET /api/v1/magazines/1234/articles.xml
 * Specify optional fields in a comma separated list:
-    * GET http://www.example.gov/api/v1/magazines/1234.json?fields=title,subtitle,date
+    * GET /api/v1/magazines/1234.json?fields=title,subtitle,date
 * Add a new article to a particular magazine:
-    * POST http://example.gov/api/v1/magazines/1234/articles
+    * POST /api/v1/magazines/1234/articles
 
 
 
 ## Responses
 ### Good examples
 
-* POST http://localhost:3700/api/user/register
+* POST /api/user/register
     - Data expected from frontend
     `"username"`: "example-username",
     `"email"`: "example-email",
@@ -36,7 +36,7 @@ It consists of user-register, authentication, posting and a payment gateway with
     `"username"`: "example-username",
 
 
-* POST http://localhost:3700/api/user/login
+* POST /api/user/login
     - Data expected from frontend
     `"email"`: "example-email",
     `"password"`:"example-password"
@@ -44,7 +44,7 @@ It consists of user-register, authentication, posting and a payment gateway with
     - Response from backend
     `"message"`: "hi,example-username. You're logged in.",
 
- * POST http://localhost:3700/api/posts/
+ * POST /api/posts/
     - Data expected from frontend
     `"title"`: "example-title",
     `"content"`: "exmaple-content"
@@ -56,7 +56,7 @@ It consists of user-register, authentication, posting and a payment gateway with
     `"content"`: "exmaple-content",
     `"createdAt"`: "2020-10-02T18:23:15.606Z"
 
- * GET http://localhost:3700/api/posts/
+ * GET /api/posts/
     - Response from backend
     [
         {
