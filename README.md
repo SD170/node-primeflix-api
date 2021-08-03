@@ -6,19 +6,19 @@ It consists of user-register, authentication, posting and a payment gateway with
 ##Endpoints
 ### Good URL examples
 * Register:
-    * POST /api/user/register
+   >* POST /api/user/register
 * Login:
-    * POST /api/user/login
+    >* POST /api/user/login
 * To create a post with "title, content":
-    * POST /api/posts/
+    >* POST /api/posts/
 * To retrive all posts:
-    * GET /api/posts/
+    >* GET /api/posts/
 * All articles in this magazine in XML format:
-    * GET /api/v1/magazines/1234/articles.xml
+    >* GET /api/v1/magazines/1234/articles.xml
 * Specify optional fields in a comma separated list:
-    * GET /api/v1/magazines/1234.json?fields=title,subtitle,date
+    >* GET /api/v1/magazines/1234.json?fields=title,subtitle,date
 * Add a new article to a particular magazine:
-    * POST /api/v1/magazines/1234/articles
+    >* POST /api/v1/magazines/1234/articles
 
 
 
